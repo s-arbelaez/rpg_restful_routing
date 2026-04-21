@@ -3,7 +3,7 @@ const { personajes, habilidades } = require('../data/datosJuego');
 
 const router = express.Router();
 
-// GET /api/personajes?nombre=&tipo=
+// GET /api/habilidades?orden=estamina
 router.get('/', (req, res) => {
     const { orden } = req.query;
     let resultado = [...habilidades];
@@ -13,14 +13,14 @@ router.get('/', (req, res) => {
     res.status(200).json(resultado);
 });
 
-// GET /api/personajes/:id
+// GET /api/habilidades/:id
 router.get('/:id', (req, res) => {
     const id = Number(req.params.id);
-    const personaje = personajes.find(p => p.id === id);
-    if (!personaje) {
-        return res.status(404).json({ error: 'Personaje no encontrado' });
+    const habilidad = habilidades.find(p => p.id === id);
+    if (!habilidad) {
+        return res.status(404).json({ error: 'Habilidad no encontrada' });
     }
-    res.status(200).json(personaje);
+    res.status(200).json(habilidad);
 });
 
 // POST /api/personajes
@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
     res.status(201).json(nuevo);
 });
 
-// GET /api/personajes/:id/habilidades — ruta jerárquica
+// GET /api/habilidades/:id/habilidades — ruta jerárquica
 router.get('/:id/habilidades', (req, res) => {
     const id = Number(req.params.id);
     const personaje = personajes.find(p => p.id === id);
