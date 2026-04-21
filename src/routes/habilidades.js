@@ -23,22 +23,15 @@ router.get('/:id', (req, res) => {
     res.status(200).json(habilidad);
 });
 
-// POST /api/personajes
-router.post('/', (req, res) => {
-    const nuevo = { id: personajes.length + 1, ...req.body };
-    personajes.push(nuevo);
-    res.status(201).json(nuevo);
-});
-
-// GET /api/habilidades/:id/habilidades — ruta jerárquica
-router.get('/:id/habilidades', (req, res) => {
+// PUT /api/habilidades/:id
+router.put('/:id', (req, res) => {
     const id = Number(req.params.id);
-    const personaje = personajes.find(p => p.id === id);
-    if (!personaje) {
-        return res.status(404).json({ error: 'Personaje no encontrado' });
+    const habilidad = habilidades.find(p => p.id === id);
+    if (!habilidad) {
+        return res.status(404).json({ error: 'Habilidad no encontrada' });
     }
-    const suyas = habilidades.filter(h => personaje.habilidades.includes(h.id));
-    res.status(200).json(suyas);
+    Object.assign(habilidad, req.body);
+    res.status(200).json(habilidad);
 });
 
 module.exports = router;
