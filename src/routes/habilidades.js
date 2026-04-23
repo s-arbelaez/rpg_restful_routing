@@ -23,6 +23,12 @@ router.get('/:id', (req, res) => {
     res.status(200).json(habilidad);
 });
 
+router.post('/', (req, res) => {
+    const nuevo = { id: habilidades.length + 1, ...req.body };
+    habilidades.push(nuevo);
+    res.status(201).json(nuevo);
+});
+
 // PUT /api/habilidades/:id
 router.put('/:id', (req, res) => {
     const id = Number(req.params.id);
@@ -33,5 +39,15 @@ router.put('/:id', (req, res) => {
     Object.assign(habilidad, req.body);
     res.status(200).json(habilidad);
 });
+
+router.delete('/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const habilidad = habilidades.findIndex(p => p.id === id);
+    if (habilidad === -1) {
+        return res.status(404).json({ error: 'Habilidad no encontrada' });
+    }
+    habilidades.splice(habilidad, 1)
+    res.status(204).send()
+})
 
 module.exports = router;
