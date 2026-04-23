@@ -7,8 +7,8 @@ const PORT = 3000;
  
 app.use(express.json());                 // parsea JSON en el body
  
-app.use('/api/personajes', personajesRouter);
-app.use('/api/habilidades', habilidadesRouter);
+app.use('/api/v1/personajes', personajesRouter);
+app.use('/api/v1/habilidades', habilidadesRouter);
  
 // Middleware genérico de 404 (opcional, buena práctica)
 app.use((req, res) => {
